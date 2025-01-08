@@ -18,6 +18,10 @@
             width: 150px;
             height: 150px;
         }
+        .details {
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -26,6 +30,13 @@
             <img id="profilePicture" src="https://via.placeholder.com/150" alt="Profile Picture">
             <h1 id="displayName">Welcome to My Website</h1>
             <h4 id="displayProfession"></h4>
+        </div>
+
+        <div class="details" id="detailsSection" style="display: none;">
+            <p id="displayTraining"></p>
+            <p id="displayContact"></p>
+            <p id="displayEmail"></p>
+            <p id="displayAbout"></p>
         </div>
 
         <div id="editForm" class="mt-4">
@@ -51,6 +62,10 @@
                     <input type="email" class="form-control" id="email" placeholder="Enter your email">
                 </div>
                 <div class="mb-3">
+                    <label for="about" class="form-label">About</label>
+                    <textarea class="form-control" id="about" rows="3" placeholder="Write about yourself"></textarea>
+                </div>
+                <div class="mb-3">
                     <label for="profilePictureInput" class="form-label">Profile Picture</label>
                     <input type="file" class="form-control" id="profilePictureInput" accept="image/*">
                 </div>
@@ -59,6 +74,17 @@
         </div>
 
         <button id="editButton" class="btn btn-primary mt-4" style="display: none;">Edit Details</button>
+
+        <div class="mt-5">
+            <h4>Feedback and Message</h4>
+            <form id="feedbackForm">
+                <div class="mb-3">
+                    <label for="feedback" class="form-label">Your Feedback</label>
+                    <textarea class="form-control" id="feedback" rows="3" placeholder="Write your feedback here"></textarea>
+                </div>
+                <button type="submit" class="btn btn-secondary">Submit Feedback</button>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -67,6 +93,7 @@
         const editForm = document.getElementById('editForm');
         const editButton = document.getElementById('editButton');
         const saveButton = document.getElementById('saveButton');
+        const detailsSection = document.getElementById('detailsSection');
 
         saveButton.addEventListener('click', () => {
             const name = document.getElementById('name').value;
@@ -74,6 +101,7 @@
             const training = document.getElementById('training').value;
             const contact = document.getElementById('contact').value;
             const email = document.getElementById('email').value;
+            const about = document.getElementById('about').value;
 
             if (name) {
                 document.getElementById('displayName').textContent = name;
@@ -81,6 +109,22 @@
 
             if (profession) {
                 document.getElementById('displayProfession').textContent = profession;
+            }
+
+            if (training) {
+                document.getElementById('displayTraining').textContent = `Training: ${training}`;
+            }
+
+            if (contact) {
+                document.getElementById('displayContact').textContent = `Contact: ${contact}`;
+            }
+
+            if (email) {
+                document.getElementById('displayEmail').textContent = `Email: ${email}`;
+            }
+
+            if (about) {
+                document.getElementById('displayAbout').textContent = `About: ${about}`;
             }
 
             if (profilePictureInput.files.length > 0) {
@@ -97,12 +141,20 @@
             alert('Details saved successfully!');
 
             editForm.style.display = 'none';
+            detailsSection.style.display = 'block';
             editButton.style.display = 'block';
         });
 
         editButton.addEventListener('click', () => {
             editForm.style.display = 'block';
+            detailsSection.style.display = 'none';
             editButton.style.display = 'none';
+        });
+
+        document.getElementById('feedbackForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const feedback = document.getElementById('feedback').value;
+            alert(`Thank you for your feedback: ${feedback}`);
         });
     </script>
 </body>
