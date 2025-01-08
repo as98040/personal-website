@@ -24,7 +24,8 @@
     <div class="container">
         <div class="profile">
             <img id="profilePicture" src="https://via.placeholder.com/150" alt="Profile Picture">
-            <h1>Welcome to My Website</h1>
+            <h1 id="displayName">Welcome to My Website</h1>
+            <h4 id="displayProfession"></h4>
         </div>
 
         <div id="editForm" class="mt-4">
@@ -56,18 +57,30 @@
                 <button type="button" id="saveButton" class="btn btn-success">Save Details</button>
             </form>
         </div>
+
+        <button id="editButton" class="btn btn-primary mt-4" style="display: none;">Edit Details</button>
     </div>
 
     <script>
         const profilePicture = document.getElementById('profilePicture');
         const profilePictureInput = document.getElementById('profilePictureInput');
+        const editForm = document.getElementById('editForm');
+        const editButton = document.getElementById('editButton');
+        const saveButton = document.getElementById('saveButton');
 
-        document.getElementById('saveButton').addEventListener('click', () => {
+        saveButton.addEventListener('click', () => {
             const name = document.getElementById('name').value;
             const profession = document.getElementById('profession').value;
+            const training = document.getElementById('training').value;
+            const contact = document.getElementById('contact').value;
+            const email = document.getElementById('email').value;
 
             if (name) {
-                document.querySelector('.profile h1').textContent = name;
+                document.getElementById('displayName').textContent = name;
+            }
+
+            if (profession) {
+                document.getElementById('displayProfession').textContent = profession;
             }
 
             if (profilePictureInput.files.length > 0) {
@@ -82,6 +95,14 @@
             }
 
             alert('Details saved successfully!');
+
+            editForm.style.display = 'none';
+            editButton.style.display = 'block';
+        });
+
+        editButton.addEventListener('click', () => {
+            editForm.style.display = 'block';
+            editButton.style.display = 'none';
         });
     </script>
 </body>
